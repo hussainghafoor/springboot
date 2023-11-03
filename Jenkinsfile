@@ -44,7 +44,7 @@ pipeline {
                     sh 'sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc -y'
 
                     // Update Tomcat server.xml to change the port to 8090
-                    sh 'sed -i "s/Connector port=\"8080\"/Connector port=\"8090\"/" /etc/tomcat/server.xml'
+                    sh 'sudo sed -i "s/Connector port=\"8080\"/Connector port=\"8090\"/" /etc/tomcat/server.xml'
 
                     
                     // Update tomcat.conf with JAVA_OPTS settings
