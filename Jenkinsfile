@@ -21,8 +21,8 @@ pipeline {
             steps {
                 script {
                     // Install Maven on the application server
-                    sh 'sudo yum install maven -y' // Add sudo here
-
+                    sh 'sudo yum install maven -y'
+                    
                     // Navigate to the springboot directory
                     dir('springboot') {
                         // Build the project and create a WAR file
@@ -37,13 +37,35 @@ pipeline {
             steps {
                 script {
                     // Install Tomcat on the server
-                    sh 'sudo yum install tomcat -y' // Add sudo here
-
+                    sh 'sudo yum install tomcat -y'
+                    
                     // Install additional web tools
-                    sh 'sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc -y' // Add sudo here
-
+                    sh 'sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc -y'
+                    
                     // Update tomcat.conf with JAVA_OPTS settings
-                    sh 'echo \'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"\' | sudo tee -a /usr/share/tomcat/conf/tomcat.conf' // Add sudo here
-
+                    sh 'echo \'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"\' | sudo tee -a /usr/share/tomcat/conf/tomcat.conf'
+                    
                     // Update tomcat-users.xml with admin user and password
-                    sh 'echo \'<user username="admin" password="password" roles="manager-gui,admin-gui"/>\' | sudo tee -a
+                    sh "echo '<user username=\"admin\" password=\"password\" roles=\"manager-gui,admin-gui\"/>' | sudo tee -a /usr/share/tomcat/conf/tomcat-users.xml"
+                    
+                    // Restart Tomcat service
+                    sh 'sudo systemctl restart tomcat'
+                }
+            }
+        }
+
+        stage('Deploy Web Application') {
+            steps {
+                script {
+                    // Generate the WAR file using Maven
+                    dir('springboot') {
+                        sh 'mvn install'
+                    }
+
+                    // Copy the WAR file to Tomcat's webapps directory
+                    sh 'sudo cp target/your-app.war /var/lib/tomcat/webapps'
+                }
+            }
+        }
+    }
+}
