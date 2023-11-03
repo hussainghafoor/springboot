@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Install Maven on the application server
-                    sh 'yum install maven -y'
+                    sh 'sudo yum install maven -y'
                     
                     // Navigate to the springboot directory
                     dir('springboot') {
@@ -38,10 +38,10 @@ pipeline {
             steps {
                 script {
                     // Install Tomcat on the server
-                    sh 'yum install tomcat -y'
+                    sh 'sudo yum install tomcat -y'
                     
                     // Install additional web tools
-                    sh 'yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc -y'
+                    sh 'sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc -y'
                     
                     // Update tomcat.conf with JAVA_OPTS settings
                     sh 'echo \'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"\' | sudo tee -a /usr/share/tomcat/conf/tomcat.conf'
