@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+stage('Debug') {
+    steps {
+        sh 'whoami'
+        sh 'env'
+    }
+}
     stages {
         stage('Checkout Code') {
             steps {
