@@ -26,9 +26,8 @@ pipeline {
                     
                     // Navigate to the springboot directory
                     dir('springboot') {
-                        // Build the project and create a WAR file
-                        sh 'mvn test'
-                        sh 'mvn install'
+                        // Build the project
+                        sh 'mvn clean install'
                     }
                 }
             }
@@ -58,16 +57,14 @@ pipeline {
         stage('Deploy Web Application') {
             steps {
                 script {
-                    // Generate the WAR file using Maven
+                    // Navigate to the springboot directory
                     dir('springboot') {
-                        sh 'mvn install'
+                        // List the contents of the target directory
+                        sh 'ls -l target/'
+                    
+                        // Copy the WAR file to Tomcat's webapps directory
+                        sh 'sudo cp target/hello-world-0.0.1-SNAPSHOT.war /var/lib/tomcat/webapps'
                     }
-                    
-                    // List the files in the target directory to see the actual WAR file name
-                    sh 'ls -l target/'
-                    
-                    // Copy the WAR file to Tomcat's webapps directory
-                    sh 'sudo cp target/hello-world-0.0.1-SNAPSHOT.war /var/lib/tomcat/webapps'
                 }
             }
         }
