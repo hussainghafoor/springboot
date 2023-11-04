@@ -8,12 +8,18 @@ pipeline {
                 sh 'env'
             }
         }
-
+    stage('Cleanup Workspace') {
+           steps {
+                script {
+                    // Clean up the workspace before cloning
+                    sh 'if [ -d "/var/lib/jenkins/workspace/springboot_pipeline" ]; then sudo rm -rf /var/lib/jenkins/workspace/springboot_pipeline; fi'
+                }
+            }
+        }
         stage('Checkout Code') {
             steps {
                 script {
                     // Download & Clean the code to your Jenkins server
-                    sh 'sudo rm -rf /var/lib/jenkins/workspace/mave*'
                     sh 'git clone https://github.com/adsh641/springboot.git'
                 }
             }
