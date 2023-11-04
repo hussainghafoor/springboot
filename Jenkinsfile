@@ -8,14 +8,6 @@ pipeline {
                 sh 'env'
             }
         }
-    stage('Cleanup Workspace') {
-           steps {
-                script {
-                    // Clean up the workspace before cloning
-                    sh 'if [ -d "/var/lib/jenkins/workspace/new-pipeline_pipeline" ]; then sudo rm -rf /var/lib/jenkins/workspace/new-pipeline; fi'
-                }
-            }
-        }
         stage('Checkout Code') {
             steps {
                 script {
