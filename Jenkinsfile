@@ -12,7 +12,7 @@ pipeline {
            steps {
                 script {
                     // Clean up the workspace before cloning
-                    sh 'if [ -d "/var/lib/jenkins/workspace/springboot_pipeline" ]; then sudo rm -rf /var/lib/jenkins/workspace/springboot_pipeline; fi'
+                    sh 'if [ -d "/var/lib/jenkins/workspace/new-pipeline_pipeline" ]; then sudo rm -rf /var/lib/jenkins/workspace/new-pipeline; fi'
                 }
             }
         }
