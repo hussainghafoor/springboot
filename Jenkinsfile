@@ -48,7 +48,7 @@ pipeline {
                     sh 'echo \'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"\' | sudo tee -a /usr/share/tomcat/conf/tomcat.conf'
                     
                     // Update tomcat-users.xml with admin user and password
-                    sh 'echo \'<user username="admin" password="password" roles="manager-gui,admin-gui"/>\' | sudo tee -a /usr/share/tomcat/conf/tomcat-users.xml'
+                    // sh 'echo \'<user username="admin" password="password" roles="manager-gui,admin-gui"/>\' | sudo tee -a /usr/share/tomcat/conf/tomcat-users.xml'
                     
                     // Remove <!-- only from line number 50 in tomcat-users.xml
                     sh 'sudo sed -i "50s/<!-- //" /usr/share/tomcat/conf/tomcat-users.xml'
