@@ -51,7 +51,7 @@ pipeline {
                     sh 'echo \'<user username="admin" password="password" roles="manager-gui,admin-gui"/>\' | sudo tee -a /usr/share/tomcat/conf/tomcat-users.xml'
                     
                     // Remove <!-- only from the specified line in abc.txt
-                    sh 'sed -i "/<user name=\"admin\" password=\"adminadmin\" roles=\"admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status\"/ s/<!-- //g" /usr/share/tomcat/conf/tomcat-users.xml'
+                    sh 'sudo sed -i "/<user name=\"admin\" password=\"adminadmin\" roles=\"admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status\"/ s/<!-- //g" /usr/share/tomcat/conf/tomcat-users.xml'
                     
                     // Restart Tomcat service
                     sh 'sudo systemctl restart tomcat'
