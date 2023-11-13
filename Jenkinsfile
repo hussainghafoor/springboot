@@ -20,7 +20,7 @@ pipeline {
         stage('Maven') {
             steps {
                 script {
-                    // Install Maven on the application server
+                    // We are Installing Maven on the application server
                     sh 'sudo yum install maven -y'
                     
                     // Navigate to the springboot directory
