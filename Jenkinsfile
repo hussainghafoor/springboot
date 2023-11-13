@@ -42,7 +42,7 @@ pipeline {
                     sh 'sudo yum install tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp tomcat-javadoc -y'
 
                     // Update Tomcat server.xml to change the port to 8090
-                    sh 'sudo sed -i \'s/Connector port="8080"/Connector port="8090"/\' /etc/tomcat/server.xml'
+                    sh 'sudo sed -i \'s/Connector port="8081"/Connector port="8090"/\' /etc/tomcat/server.xml'
                     
                     // Update tomcat.conf with JAVA_OPTS settings
                     sh 'echo \'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"\' | sudo tee -a /usr/share/tomcat/conf/tomcat.conf'
